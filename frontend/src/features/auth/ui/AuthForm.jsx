@@ -19,7 +19,7 @@ function AuthField({ label, type = "text", name, placeholder, value, onChange, e
         aria-describedby={error ? `${name}-error` : undefined}
         required
       />
-      {error && <span id={`${name}-error`} className="mt-1.5 block text-xs text-red-600">{error}</span>}
+      {error && <span id={`${name}-error`} className="mt-1.5 block text-xs text-danger">{error}</span>}
     </label>
   );
 }
@@ -42,7 +42,7 @@ export default function AuthForm({ mode }) {
   }
 
   return (
-    <section className="mx-auto w-full max-w-[430px] rounded-[26px] border border-line bg-white p-7 sm:p-9">
+    <section className="mx-auto w-full max-w-[430px] rounded-[26px] border border-line bg-surface p-7 sm:p-9">
       <div className="mb-8">
         <h2 className="text-2xl font-semibold tracking-tight text-ink">{isRegister ? "Create your account" : "Welcome back"}</h2>
         <p className="mt-2 text-sm text-muted">{isRegister ? "A little space for your next big idea." : "Sign in to continue to your workspace."}</p>
@@ -54,7 +54,7 @@ export default function AuthForm({ mode }) {
         <AuthField label="Email address" type="email" name="email" placeholder="you@example.com" value={form.email} onChange={update} error={fieldErrors.email} autoComplete="email" />
         <AuthField label="Password" type="password" name="password" placeholder={isRegister ? "At least 8 characters" : "Enter your password"} value={form.password} onChange={update} error={fieldErrors.password} autoComplete={isRegister ? "new-password" : "current-password"} />
         {error && !Object.keys(fieldErrors).length && (
-          <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+          <p role="alert" className="rounded-xl bg-danger-surface px-4 py-3 text-sm text-danger">{error}</p>
         )}
         <button className="primary-button group" type="submit" disabled={isSubmitting}>
           <span>{isSubmitting ? "Please wait..." : isRegister ? "Create account" : "Sign in"}</span>

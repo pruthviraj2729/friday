@@ -1,5 +1,6 @@
 import { Check, Command, Sparkles } from "lucide-react";
 import { Link } from "react-router";
+import ThemeToggle from "../../../app/ThemeToggle.jsx";
 
 export default function AuthLayout({ mode, children }) {
   const isRegister = mode === "register";
@@ -9,15 +10,18 @@ export default function AuthLayout({ mode, children }) {
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl flex-col">
         <header className="flex items-center justify-between">
           <Link to="/login" className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-ink" aria-label="Friday home">
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-ink text-white"><Command size={17} strokeWidth={2.2} /></span>
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-ink text-inverse"><Command size={17} strokeWidth={2.2} /></span>
             friday
           </Link>
-          <span className="hidden text-sm text-muted sm:block">A calmer way to work with AI</span>
+          <div className="flex items-center gap-5">
+            <span className="hidden text-sm text-muted sm:block">A calmer way to work with AI</span>
+            <ThemeToggle />
+          </div>
         </header>
 
         <div className="grid flex-1 items-center gap-16 py-14 lg:grid-cols-[1fr_0.85fr] lg:gap-28 lg:py-20">
           <section className="mx-auto w-full max-w-[500px]">
-            <div className="mb-9 inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-3.5 py-2 text-xs font-medium text-muted">
+            <div className="mb-9 inline-flex items-center gap-2 rounded-full border border-line bg-surface-soft px-3.5 py-2 text-xs font-medium text-muted">
               <Sparkles size={14} className="text-accent" />
               One home for all your AI
             </div>
@@ -31,7 +35,7 @@ export default function AuthLayout({ mode, children }) {
             </p>
             <div className="mt-10 flex flex-wrap gap-2.5" aria-label="Supported AI models">
               {["Gemini", "ChatGPT", "Claude"].map((model) => (
-                <span key={model} className="rounded-full border border-line bg-white px-3.5 py-2 text-xs font-medium text-ink">{model}</span>
+                <span key={model} className="rounded-full border border-line bg-surface px-3.5 py-2 text-xs font-medium text-ink">{model}</span>
               ))}
               <span className="rounded-full border border-line px-3.5 py-2 text-xs font-medium text-muted">and more</span>
             </div>

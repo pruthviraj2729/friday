@@ -4,11 +4,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: "#f7f6f2",
-        ink: "#20201e",
-        muted: "#777873",
-        line: "#e5e4de",
-        accent: "#6558d3"
+        paper: "var(--color-paper)",
+        surface: "var(--color-surface)",
+        "surface-soft": "var(--color-surface-soft)",
+        ink: "var(--color-ink)",
+        muted: "var(--color-muted)",
+        line: "var(--color-line)",
+        accent: "var(--color-accent)",
+        "accent-soft": "var(--color-accent-soft)",
+        "accent-dot": "var(--color-accent-dot)",
+        inverse: "var(--color-inverse)",
+        danger: "var(--color-danger)",
+        "danger-surface": "var(--color-danger-surface)"
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]

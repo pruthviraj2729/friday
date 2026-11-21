@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { ThemeProvider } from "./app/ThemeContext.jsx";
 import { refreshSession, setAccessToken } from "./features/auth/api/authApi.js";
 import { setAuthenticated, setGuest } from "./features/auth/state/authSlice.js";
 import { useAuth } from "./features/auth/hooks/useAuth.js";
@@ -10,9 +11,11 @@ import Workspace from "./features/auth/ui/Workspace.jsx";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

@@ -1,4 +1,5 @@
-import { ArrowUpRight, Command, LogOut, Sparkles } from "lucide-react";
+import { ArrowUpRight, Command, LogOut } from "lucide-react";
+import ThemeToggle from "../../../app/ThemeToggle.jsx";
 import { useAuth } from "../hooks/useAuth.js";
 
 export default function Workspace() {
@@ -9,19 +10,24 @@ export default function Workspace() {
       <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col">
         <header className="flex items-center justify-between">
           <div className="flex items-center gap-2.5 text-lg font-semibold tracking-tight text-ink">
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-ink text-white"><Command size={17} /></span>friday
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-ink text-inverse"><Command size={17} /></span>friday
           </div>
-          <button onClick={logout} className="inline-flex items-center gap-2 rounded-xl border border-line bg-white px-4 py-2.5 text-sm font-medium text-ink hover:bg-paper">
-            <LogOut size={15} /> Sign out
-          </button>
+          <div className="flex items-center gap-2.5">
+            <ThemeToggle />
+            <button onClick={logout} className="inline-flex items-center gap-2 rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-medium text-ink hover:bg-paper">
+              <LogOut size={15} /> Sign out
+            </button>
+          </div>
         </header>
         <section className="flex flex-1 flex-col items-center justify-center py-16 text-center">
-          <div className="mb-7 grid h-14 w-14 place-items-center rounded-2xl bg-[#eae8fa] text-accent"><Sparkles size={24} /></div>
-          <p className="mb-3 text-sm font-medium text-accent">Your workspace is ready</p>
-          <h1 className="text-4xl font-semibold tracking-[-0.04em] text-ink sm:text-5xl">Good to have you, {user?.name.split(" ")[0]}.</h1>
+          <p className="mb-3 inline-flex rounded-full bg-[#202124] px-3 py-1 text-sm font-medium text-white">Your workspace is ready</p>
+          <h1 className="flex flex-wrap items-center justify-center gap-3 text-4xl font-semibold tracking-[-0.04em] text-ink sm:text-5xl">
+            <img src="/friday-mark.png" alt="Friday logo" className="friday-mark h-10 w-10 shrink-0 object-contain" />
+            <span>Good to have you, {user?.name.split(" ")[0]}.</span>
+          </h1>
           <p className="mt-4 max-w-md text-base leading-7 text-muted">Friday brings your favorite AI models together. Your conversations will feel right at home here.</p>
-          <div className="mt-9 flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2.5 text-sm text-muted">
-            <span className="h-2 w-2 rounded-full bg-[#9b96d9]" /> AI conversations are coming soon <ArrowUpRight size={15} />
+          <div className="mt-9 flex items-center gap-2 rounded-full bg-[#202124] px-4 py-2.5 text-sm text-white">
+            <span className="h-2 w-2 rounded-full bg-white" /> AI conversations are coming soon <ArrowUpRight size={15} />
           </div>
         </section>
         <footer className="border-t border-line pt-5 text-xs text-muted">Signed in as {user?.email}</footer>
