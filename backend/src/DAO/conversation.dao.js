@@ -5,3 +5,8 @@ export async function createConversation(input) {
   const conversation = new ConversationModel(input);
   return conversation.save();
 }
+
+/** Finds a conversation belonging to the specified user. */
+export async function findConversationByIdAndUser(id, userId) {
+  return ConversationModel.findOne({ _id: id, user: userId });
+}
