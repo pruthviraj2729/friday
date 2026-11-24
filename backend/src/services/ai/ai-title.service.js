@@ -1,11 +1,11 @@
 import {ChatGroq} from '@langchain/groq'
-import { env } from "../../config/env.js"
+import { config } from "../../config/env.js"
 import {SystemMessage,HumanMessage} from 'langchain'
 import * as z from "zod"
 
 const model = new ChatGroq({
     model: "openai/gpt-oss-120b",
-    apiKey: env.groqApiKey
+    apiKey: config.groqApiKey
 })
 
 const structurModel = model.withStructuredOutput( z.object({
