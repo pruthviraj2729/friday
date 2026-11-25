@@ -1,4 +1,4 @@
-import { createConversation, findConversationByIdAndUser } from "../DAO/conversation.dao.js";
+import { createConversation, findConversationByIdAndUser, findConverSationByUser } from "../DAO/conversation.dao.js";
 import { config } from "../config/env.js";
 import { genrateTitle } from "../services/ai/ai-title.service.js";
 import { AppError } from "../utils/AppError.js";
@@ -77,4 +77,30 @@ export  async function handleMessage(req, res, next) {
         conversation: conversation._id
     })
 
+}
+
+// get all the conversation of the user
+export async function getAllConversations(req, res, next) {
+    const user = req.user;
+
+    const conversations = await findConverSationByUser(user.id)
+    return sendSuccess(res, 200, "conversation fetched successfully", { conversations })
+}
+
+// get all messages of a specific user
+export async function getMessagesByConversation(req, res, next){
+    const { conversationId } = req.params;
+    const user = req.user;
+    
+    // -------------check ownership of the user------------------
+
+    const conversation = await findConversationByIdAndUser(conversationId, user.id)
+
+    if(!conversation) {
+        return next( new AppError(404, "conversation not found"))
+    }
+
+    const messages = await findMessagesByConversation(conversation.id);
+
+    return sendSuccess(res, 200, "Messages fetched successfully", {messages})
 }

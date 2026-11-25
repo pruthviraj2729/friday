@@ -10,3 +10,7 @@ export async function createConversation(input) {
 export async function findConversationByIdAndUser(id, userId) {
   return ConversationModel.findOne({ _id: id, user: userId });
 }
+
+export async function findConverSationByUser(userId){
+  return ConversationModel.find({user: userId})
+}
