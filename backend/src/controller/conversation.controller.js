@@ -5,7 +5,22 @@ import { AppError } from "../utils/AppError.js";
 import { sendSuccess } from "../utils/apiResponse.js";
 import model from "../services/ai/main.servce.js";
 import { findMessagesByConversation, createMessage } from "../DAO/message.dao.js";
-import { HumanMessage, AIMessage } from "langchain";
+import { HumanMessage, AIMessage, SystemMessage } from "langchain";
+import { MCPAdapter } from "@langchain/mcp-adapters";
+import { createAgent } from "langchain";
+// import {config} from "../config/env.js"
+
+
+const adapter = new MCPAdapter({
+    servers: {
+        tavily: {
+            url: config.TAVILY_URL
+        }
+    }
+});
+
+const tools = await adapter.listTools();
+
 
 export  async function handleMessage(req, res, next) {
     const {content, conversation: conversationId} = req.body;
@@ -46,7 +61,21 @@ export  async function handleMessage(req, res, next) {
             content: content,
             conversation: conversation._id
         })
-        const stream =  await model.stream(messages)
+
+        const agent = createAgent({
+            model,
+            tools
+        })
+        const stream =  await agent.stream({
+            messages: [
+                new SystemMessage(`
+                -Your name is friday.
+            `),
+            ...messages
+            ]
+        }, {
+            streamMode:"messages"
+        })
 
 
         // ----------set headers for SSE------------------
@@ -60,7 +89,7 @@ export  async function handleMessage(req, res, next) {
         res.write(`data: ${JSON.stringify({ conversationId: conversation.id, title: conversation.title})}`)
 
         let aiChunk = null;
-        for await (const chunk of stream) {
+        for await (const [chunk] of stream) {
             if(aiChunk == null){
                 aiChunk = chunk;
             } else {
