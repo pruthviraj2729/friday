@@ -42,8 +42,6 @@ export  async function handleMessage(req, res, next) {
     }
 
 
-    const response = await model.invoke(content);
-    
     const messages = (await findMessagesByConversation(conversation.id))
         .map(msg => {
             if(msg.role === 'user'){
@@ -86,7 +84,7 @@ export  async function handleMessage(req, res, next) {
 
         // ------------sent  conversation details via SSE-----------------------
 
-        res.write(`data: ${JSON.stringify({ conversationId: conversation.id, title: conversation.title})}`)
+        res.write(`data: ${JSON.stringify({ conversationId: conversation.id, title: conversation.title})}\n\n`)
 
         let aiChunk = null;
         for await (const [chunk] of stream) {
